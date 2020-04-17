@@ -8,20 +8,17 @@ using System.Threading.Tasks;
 
 namespace EmployeeManagement.Pages
 {
-    public class EmployeeListBase:ComponentBase
+    public class EmployeeDetailsBase:ComponentBase
     {
-        public EmployeeListBase()
-        {
-
-        }
+        public Employee Employee { get; set; }
         [Inject]
         public IEmployeeService EmployeeService { get; set; }
-        public IEnumerable<Employee> Employees { get; set; }
-        protected override async Task OnInitializedAsync()
+
+        [Parameter]
+        public string Id { get; set; }
+        protected async override Task OnInitializedAsync()
         {
-            Employees = (await EmployeeService.GetEmployees()).ToList();
-            
+            Employee = await EmployeeService.GetEmployee(int.Parse(Id));
         }
-               
     }
 }
