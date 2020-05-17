@@ -16,26 +16,25 @@ namespace EmployeeManagement.Services
         {
             this.httpClient = httpClient;
         }
-        //Test implementation
-        public async Task<IEnumerable<Employee>> GetAsync(string url)
-        {
-            return await httpClient.GetJsonAsync<Employee[]>(url);
-        }        //TODO
-        //CODE FOR POST, PUT, DELETE CAN BE ADDED
 
         public async Task<Employee> GetEmployee(int id)
         {
             return await httpClient.GetJsonAsync<Employee>($"api/employees/{id}");
         }
 
-
-
-
-        //This is real one
         public async Task<IEnumerable<Employee>> GetEmployees()
         {
             //Microsoft.AspNetCore.Components; name spacees irsen shuud serialize hiideg yum bna;
             return await httpClient.GetJsonAsync<Employee[]>("api/employees");
+        }
+
+        public async Task<Employee> UpdateEmployee(Employee employee)
+        {
+            return await httpClient.PutJsonAsync<Employee>($"api/employees/{employee.EmployeeId}",employee);
+        }
+        public async Task<Employee> CreateEmployee(Employee employee)
+        {
+            return await httpClient.PostJsonAsync<Employee>($"api/employees", employee);
         }
     }
 }

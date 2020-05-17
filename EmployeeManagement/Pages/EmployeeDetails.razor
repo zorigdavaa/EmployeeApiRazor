@@ -1,26 +1,34 @@
-﻿@page "/EmployeeDetails/{id}"
-
+﻿@page "/employeedetails/{id}"
 @inherits EmployeeDetailsBase
-<h3>EmployeeDetails</h3>
 
-<div class="row justify-content-center m-3">
-    <div class="col-sm-8">
-        <div class="card">
-            <div class="card-header">
-                <h1>@Employee.LastName @Employee.FirstName</h1>
-            </div>
-            <div class="card-body text-center">
-                <img class="card-img-top" src="@Employee.PhotoPath" />
-                <h4>Employee ID: @Employee.EmployeeId</h4>
-                <h4>Email: @Employee.Emial</h4>
-                <h4>DepartmentL @Employee.DepartmentId</h4>
-            </div>
-            <div class="card-footer text-center">
-                <a href="/" class="btn btn-primary">Back</a>
-                <a href="#" class="btn btn-primary">Edit</a>
-                <a href="#" class="btn btn-danger">Delete</a>
+<h3>EmployeeDetails</h3>
+@if (Employee == null || Employee.Department == null)
+{
+    <div class="loader"></div>
+}
+else
+{
+    <div class="row justify-content-center m-3">
+        <div class="col-sm-8">
+            <div class="card">
+                <div class="card-header">
+                    <h1>@Employee.LastName @Employee.FirstName @Coordinates</h1>
+                </div>
+                <div class="card-body text-center">
+                    <img class="card-img-top" src="@Employee.PhotoPath" @onmousemove="@(e=>Coordinates = $"X={e.ClientX} Y={e.ClientY}")" />
+                    <h4>Employee ID: @Employee.EmployeeId</h4>
+                    <h4>Email: @Employee.Emial</h4>
+                    <h4>DepartmentL @Employee.Department.DepartmentName</h4>
+                    <button class="btn btn-primary" type="button" @onclick="@Button_Click">@ButtonText</button>
+                </div>
+                <div class="card-footer text-center @CssClass">
+                    <a href="/" class="btn btn-primary">Back</a>
+                    <a href="editemployee/@Employee.DepartmentId" class="btn btn-primary">Edit</a>
+                    <a href="#" class="btn btn-danger">Delete</a>
+                </div>
             </div>
         </div>
     </div>
-</div>
+}
+
 

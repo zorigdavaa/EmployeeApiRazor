@@ -51,6 +51,7 @@ namespace EmployeeManagement.api.Controllers
 
             }
         }
+        [HttpPost]
         public async Task<ActionResult<Employee>> CreateEmployee(Employee employee)
         {
             try
@@ -82,25 +83,19 @@ namespace EmployeeManagement.api.Controllers
 
         }
         [HttpPut("{id:int}")]
-        public async Task<ActionResult<Employee>> UpdateEmployee(int id,Employee employee)
+        public async Task<ActionResult<Employee>> UpdateEmployee(Employee employee)
         {
             try
             {
-                if (id !=employee.EmployeeId)
-                {
-                    return BadRequest("Employee Id mismatch");
-                }
-               var employeeToUpdate= await employeeRepository.GetEmployee(id);
+               var employeeToUpdate= await employeeRepository.GetEmployee(employee.EmployeeId);
                 if (employeeToUpdate==null)
                 {
-                    return NotFound($"Employee with id-{id} not found");
+                    return NotFound($"Employee with id-{employee.EmployeeId} not found");
                 }
-
                 return await employeeRepository.UpdateEmployee(employee);
             }
             catch (Exception)
             {
-
                 return StatusCode(StatusCodes.Status500InternalServerError,
                                     "Error updating data from the database ");
             }

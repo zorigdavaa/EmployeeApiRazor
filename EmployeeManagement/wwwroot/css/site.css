@@ -190,3 +190,6 @@ app {
 .card {
     overflow: hidden;
 }
+.Hider{
+    display:none
+}

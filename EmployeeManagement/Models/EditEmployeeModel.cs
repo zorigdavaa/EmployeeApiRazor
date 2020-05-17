@@ -1,12 +1,13 @@
-﻿using EmployeeManagement.Models.CustomValidation;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
+using EmployeeManagement.Models.CustomValidation;
 
 namespace EmployeeManagement.Models
 {
-    public class Employee
+    public class EditEmployeeModel
     {
         [Key]
         public int EmployeeId { get; set; }
@@ -17,17 +18,22 @@ namespace EmployeeManagement.Models
         public string LastName { get; set; }
         [Required]
         [EmailAddress]
+        [EmailDomainValidator(AllowedDomain = "pragimtech.com")]
         public string Emial { get; set; }
+        [CompareProperty("Emial")]
+        public string ConfirmEmail { get; set; }
         [Required]
         [DataType(DataType.Date)]
-          public DateTime DateOfBirth { get; set; }
+        [DateRangeValidation]
+        public DateTime DateOfBirth { get; set; }
         [Required]
         public Gender Gender { get; set; }
-        
+
         [Required]
         public int DepartmentId { get; set; }
         public string PhotoPath { get; set; }
         //navigation property
-        public Department Department { get; set; }
+        [ValidateComplexType]
+        public Department Department { get; set; } = new Department();
     }
 }

@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using EmployeeManagement;
 using EmployeeManagement.Services;
+using AutoMapper;
+using EmployeeManagement.Models;
 
 namespace EmployeeManagement
 {
@@ -35,7 +37,12 @@ namespace EmployeeManagement
                 client.BaseAddress = new Uri("https://localhost:44380/");
             
             });
-            
+            services.AddHttpClient<IDepartmentService, DepartmentService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44380/");
+            });
+            services.AddAutoMapper(typeof(EmployeeProfile));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

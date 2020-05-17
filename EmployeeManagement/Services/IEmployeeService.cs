@@ -10,9 +10,7 @@ namespace EmployeeManagement.Services
     {
         Task<IEnumerable<Employee>> GetEmployees();
         Task<Employee> GetEmployee(int id);
-
-
-        //Testing
-        Task<IEnumerable<Employee>> GetAsync(string url);
+        Task<Employee> UpdateEmployee(Employee employee);
+        Task<Employee> CreateEmployee(Employee employee);
     }
 }

@@ -1,0 +1,16 @@
+﻿@page "/Databinding"
+@inherits DataBindingBase
+
+<h3>DataBinding</h3>
+
+<label>@Name</label>
+<div class="form-control">
+    <input value="@Name" @onchange="@(e => { Name = e.Value.ToString(); })" />
+</div>
+
+<div class="form-control">
+    <input @bind="Colour"  />
+</div>
+<div @bind-Style="@Colour" @bind-Style:event="onchange">
+    <h3>The background colour of this wil change</h3>
+</div>
